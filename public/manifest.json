@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Idealista Extension",
+  "version": "0.1.0",
+  "description": "Base tecnica para una capa de analisis en fichas de inmueble de Idealista.",
+  "permissions": [],
+  "host_permissions": [
+    "*://www.idealista.com/*",
+    "*://www.idealista.it/*",
+    "*://www.idealista.pt/*"
+  ],
+  "background": {
+    "service_worker": "background/index.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.idealista.com/*",
+        "*://www.idealista.it/*",
+        "*://www.idealista.pt/*"
+      ],
+      "js": ["content/index.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+Los iconos reales no se han incluido todavia.
+Cuando existan, pueden colocarse en esta carpeta y declararse en manifest.json.
