@@ -8,6 +8,7 @@ import {
   detectIdealistaPage,
   isListingReadyDetection
 } from '../dom/pageDetector';
+import { extractListingData } from '../dom/extractListingData';
 import { createLogger } from '../shared/logger';
 import { widgetMount } from '../ui/widgetMount';
 
@@ -28,7 +29,8 @@ export async function bootstrapContent(
       outcome: 'skipped',
       reason: detection.reason,
       detection,
-      pageContext: null
+      pageContext: null,
+      extraction: null
     };
   }
 
@@ -42,9 +44,17 @@ export async function bootstrapContent(
       outcome: 'skipped',
       reason: 'listing already bootstrapped',
       detection,
-      pageContext
+      pageContext,
+      extraction: null
     };
   }
+
+  const extraction = extractListingData(document);
+  logger.debug('listing data extracted', {
+    data: extraction.data,
+    missingFields: extraction.missingFields,
+    warnings: extraction.warnings
+  });
 
   widgetMount(document.body, pageContext);
 
@@ -52,7 +62,8 @@ export async function bootstrapContent(
     outcome: 'mounted',
     reason: 'listing ready',
     detection,
-    pageContext
+    pageContext,
+    extraction
   };
 }
 

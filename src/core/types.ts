@@ -64,6 +64,41 @@ export interface BootstrapContentResult {
   reason: string;
   detection: IdealistaPageDetection;
   pageContext: ListingPageContext | null;
+  extraction: ListingDataExtractionResult | null;
+}
+
+export type ListingFieldName = 'price' | 'postalCode' | 'areaSqm';
+
+export interface ListingSourceSignal {
+  field: ListingFieldName;
+  source: 'selector' | 'json_ld' | 'meta' | 'text';
+  name: string;
+  rawValue: string;
+}
+
+export interface ListingFieldWarning {
+  field: ListingFieldName;
+  code:
+    | 'missing_value'
+    | 'parse_failed'
+    | 'invalid_format'
+    | 'incomplete_listing_data';
+  message: string;
+}
+
+export interface ListingData {
+  price: number | null;
+  postalCode: string | null;
+  areaSqm: number | null;
+  currency: 'EUR' | null;
+}
+
+export interface ListingDataExtractionResult {
+  data: ListingData;
+  sourceSignals: ListingSourceSignal[];
+  missingFields: ListingFieldName[];
+  warnings: ListingFieldWarning[];
+  isComplete: boolean;
 }
 
 export interface ReferenceLookupRequest {

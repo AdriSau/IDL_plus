@@ -56,6 +56,9 @@ src/
   data/
     referenceProvider.ts
   dom/
+    extractListingData.ts
+    idealistaSelectors.ts
+    parsers.ts
     pageDetector.ts
   shared/
     errors.ts
@@ -69,6 +72,9 @@ src/
 
 - `src/content/`: arranque de la content script y bootstrap de la pagina.
 - `src/dom/`: deteccion de paginas compatibles y futuras utilidades de lectura del DOM.
+- `src/dom/extractListingData.ts`: orquestacion del scraping de precio, CP y m2.
+- `src/dom/idealistaSelectors.ts`: selectores y fuentes fallback para Idealista.
+- `src/dom/parsers.ts`: parseadores reutilizables de precio, CP y superficie.
 - `src/data/`: proveedores de datos externos o internos.
 - `src/ui/`: montaje y ciclo de vida del futuro widget.
 - `src/core/`: tipos compartidos del dominio de la extension.
@@ -77,7 +83,7 @@ src/
 
 ## Siguiente punto de extension
 
-La siguiente tarea natural es implementar un extractor de datos de la ficha dentro de `src/dom/` y orquestarlo desde `src/content/bootstrap.ts`, manteniendo separadas:
+La siguiente tarea natural es conectar un proveedor de referencia y una capa de analisis encima de la extraccion ya disponible, manteniendo separadas:
 
 - deteccion y lectura del DOM
 - resolucion de referencias de datos
@@ -88,5 +94,6 @@ La siguiente tarea natural es implementar un extractor de datos de la ficha dent
 
 - La content script solo corre en dominios de Idealista declarados en el `manifest`.
 - El bootstrap vuelve a validar la pagina para mantener el punto de entrada defensivo.
-- No se ha montado UI ni scraping real todavia.
+- La extraccion DOM usa varios selectores y parseadores desacoplados para tolerar cambios moderados del layout.
+- No se ha montado UI visible ni analisis de negocio todavia.
 - La carpeta `public/icons/` queda preparada para recibir iconos reales mas adelante.
